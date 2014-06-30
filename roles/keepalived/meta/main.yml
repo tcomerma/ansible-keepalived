@@ -13,3 +13,4 @@ galaxy_info:
   categories:
   - system
 dependencies: []
+documentation_url: https://github.com/tcomerma/ansible-keepalived
