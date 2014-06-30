@@ -1,6 +1,6 @@
 ansible-keepalived: Ansible role for setting up keepalived 
-Toni Comerma - tcomerma (at) gmail.com
 ============================================================
+Toni Comerma - tcomerma (at) gmail.com
 
 This role sets up keepalived for an standard setup of:
   - One virtual IP
@@ -19,6 +19,21 @@ to give high availability to haproxy, so I use.
 
 keepalived_check_process: "haproxy"
 
+Dependencies
+------------
+Works with centos/redhat
+
+
+Example Playbook
+-------------------------
+
+    - hosts: s1
+      roles:
+         - { role: keepalived, keepalived_shared_ip: "192.168.1.1", keepalived_role: "master" }
+
+    - hosts: s2
+      roles:
+         - { role: keepalived, keepalived_shared_ip: "192.168.1.1", keepalived_role: "slave" }
 
 
 Testing & trying
