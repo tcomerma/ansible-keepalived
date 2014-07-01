@@ -23,6 +23,15 @@ Dependencies
 ------------
 Works with centos/redhat
 
+Role Variables
+--------------
+	keepalived_auth_pass: "1111"
+	keepalived_role: "MASTER"
+	keepalived_router_id: "52"
+	keepalived_shared_iface: "eth0"
+	keepalived_shared_ip: "192.168.1.1"
+	keepalived_check_process: "keepalived"
+	keepalived_priority: "100"
 
 Example Playbook
 -------------------------
@@ -40,8 +49,16 @@ Testing & trying
 ------------------
 
 Quite simple if you have vagrant installed.
-
+```
 $ git clone https://github.com/tcomerma/ansible-keepalived.git
 $ cd ansible-keepalived
 $ vagrant up
+```
 
+License
+-------
+Apache
+
+Author Information
+------------------
+Toni Comerma - tcomerma (at) gmail.com
