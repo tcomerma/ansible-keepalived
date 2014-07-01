@@ -52,21 +52,21 @@ Quite simple if you have vagrant installed.
 
 - Pulling from github
 ```
-$ mkdir -p test-keepalived/roles
-$ cd test-keepalived/roles
-$ git clone https://github.com/tcomerma/ansible-keepalived.git
-$ cd ..
-$ cp test-keepalived/roles/test/* .
-$ vagrant up
+mkdir -p test-keepalived/roles
+cd test-keepalived/roles
+git clone https://github.com/tcomerma/ansible-keepalived.git
+cd ..
+cp roles/ansible-keepalived/test/* .
+vagrant up
 ```
 
 - Pulling from ansible-galaxy
 ```
-$ mkdir -p test-keepalived/roles
-$ ansible-galaxy install -p test-keepalived/roles tcomerma.keepalived
-$ cd test-keepalived
-$ cp test-keepalived/roles/test/* .
-$ vagrant up
+mkdir -p test-keepalived/roles
+ansible-galaxy install -p test-keepalived/roles tcomerma.keepalived
+cd test-keepalived
+cp roles/ansible-keepalived/test/* .
+vagrant up
 ```
 
 
