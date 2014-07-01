@@ -1,8 +1,15 @@
 ---
 # This role installs and sets up keepalived
 
-- name: Install keepalived
+- name: Install keepalived (Centos)
   yum: name=keepalived state=present
+  when: ansible_os_family == "RedHat"
+  tags: keepalived
+  notify: restart keepalived
+
+- name: Install keepalived (debian/ubuntu)
+  apt: name=keepalived state=latest
+  when: ansible_os_family == "Debian"
   tags: keepalived
   notify: restart keepalived
 
