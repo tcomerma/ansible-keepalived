@@ -1,0 +1,29 @@
+ ! Configuration File for keepalived
+global_defs {
+}
+vrrp_script chk_service {           # Requires keepalived-1.1.13
+        script "killall -0 {{ keepalived_check_process }}"     # cheaper than pidof
+        interval 2                      # check every 2 seconds
+        weight 2                        # add 2 points of prio if OK
+}
+vrrp_instance VI_1 {
+    state {{ keepalived_role }}
+    interface {{ keepalived_shared_iface }}
+    virtual_router_id {{ keepalived_router_id }}
+    {% if keepalived_role.lower() == "master" %}
+    priority 100 
+    {% else %}
+    priority 99
+    {% endif %}   
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass {{ keepalived_auth_pass }}
+    }
+    virtual_ipaddress {
+        {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
+    }
+        track_script {
+            chk_service
+        }
+}
