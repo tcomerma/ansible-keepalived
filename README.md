@@ -65,7 +65,10 @@ vagrant up
 mkdir -p test-keepalived/roles
 ansible-galaxy install -p test-keepalived/roles tcomerma.keepalived
 cd test-keepalived
-cp roles/ansible-keepalived/test/* .
+cp roles/tcomerma.keepalived/test/* .
+
+Edit playbook.yml and change "- ansible-keepalived" for "- tcomerma.keepalived"
+
 vagrant up
 ```
 
