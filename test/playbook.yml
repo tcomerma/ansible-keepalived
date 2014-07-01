@@ -6,4 +6,4 @@
   user: vagrant
   sudo: true
   roles:
-    - keepalived
+    - tcomerma.keepalived

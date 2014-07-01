@@ -49,11 +49,26 @@ Testing & trying
 ------------------
 
 Quite simple if you have vagrant installed.
+
+- Pulling from github
 ```
+$ mkdir -p test-keepalived/roles
+$ cd test-keepalived/roles
 $ git clone https://github.com/tcomerma/ansible-keepalived.git
-$ cd ansible-keepalived
+$ cd ..
+$ cp test-keepalived/roles/test/* .
 $ vagrant up
 ```
+
+- Pulling from ansible-galaxy
+```
+$ mkdir -p test-keepalived/roles
+$ ansible-galaxy install -p test-keepalived/roles tcomerma.keepalived
+$ cd test-keepalived
+$ cp test-keepalived/roles/test/* .
+$ vagrant up
+```
+
 
 License
 -------
