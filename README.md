@@ -21,7 +21,7 @@ keepalived_check_process: "haproxy"
 
 Dependencies
 ------------
-Works with centos/redhat
+Works with centos/redhat and Debian/Ubuntu
 
 Role Variables
 --------------
@@ -57,6 +57,7 @@ cd test-keepalived/roles
 git clone https://github.com/tcomerma/ansible-keepalived.git
 cd ..
 cp roles/ansible-keepalived/test/* .
+mv Vagrantfile.Debian Vagrantfile
 vagrant up
 ```
 
@@ -66,6 +67,7 @@ mkdir -p test-keepalived/roles
 ansible-galaxy install -p test-keepalived/roles tcomerma.keepalived
 cd test-keepalived
 cp roles/tcomerma.keepalived/test/* .
+mv Vagrantfile.Debian Vagrantfile
 
 Edit playbook.yml and change "- ansible-keepalived" for "- tcomerma.keepalived"
 

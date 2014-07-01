@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Sample vagrantfile to create 2 hosts, Centos based and test keepalived is really intalled.
+# Sample vagrantfile to create 2 hosts, Ubuntu based and test keepalived is really intalled.
 # VM's start with 2 interface. The usual NAT interface (eth0) for management and a "private network"
 # so the two VM can "see" each other.
 

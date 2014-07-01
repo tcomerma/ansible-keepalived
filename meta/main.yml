@@ -10,6 +10,12 @@ galaxy_info:
     versions:
     - 5
     - 6
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
   categories:
   - system
 dependencies: []
