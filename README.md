@@ -32,6 +32,7 @@ Role Variables
 	keepalived_shared_ip: "192.168.1.1"
 	keepalived_check_process: "keepalived"
 	keepalived_priority: "100"
+	keepalived_backup_priority: "50"
 
 Example Playbook
 -------------------------
