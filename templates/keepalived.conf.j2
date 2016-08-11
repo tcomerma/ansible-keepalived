@@ -11,9 +11,9 @@ vrrp_instance VI_1 {
     interface {{ keepalived_shared_iface }}
     virtual_router_id {{ keepalived_router_id }}
     {% if keepalived_role.lower() == "master" %}
-    priority 100 
+    priority {{ keepalived_priority }}
     {% else %}
-    priority 99
+    priority {{ keepalived_backup_priority }}
     {% endif %}   
     advert_int 1
     authentication {
