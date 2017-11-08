@@ -83,3 +83,8 @@ Apache
 Author Information
 ------------------
 Toni Comerma - tcomerma (at) gmail.com
+
+Collaborator Information
+------------------------
+
+Pablo Estigarribia - pablodav (at) gmail dot com

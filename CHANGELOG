@@ -1,0 +1,4 @@
+20171107:
+   - Fixes to check script, it was not working really: now MASTER and BACKUP works when you stop the process monitored (pablodav)
+   - Fix deprecated warning for service state=running - now state=started (pablodav)
+   - Fix wrong documentation type on mote in ansible 2.4 (pablodav)

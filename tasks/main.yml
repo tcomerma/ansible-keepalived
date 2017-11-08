@@ -13,11 +13,21 @@
   tags: keepalived
   notify: restart keepalived
 
+- name: chk_service script shell
+  template: 
+    src: check_script.sh.j2 
+    dest: /etc/keepalived/check_script.sh
+    mode: 0755
+    owner: root
+    group: root
+  tags: keepalived
+  notify: restart keepalived
+
 - name: Configurar configuració de keepalived
   template: src=keepalived.conf.j2 dest=/etc/keepalived/keepalived.conf
   tags: keepalived
   notify: restart keepalived
 
 - name: Start keepalived
-  service: name=keepalived state=running
+  service: name=keepalived state=started
   tags: keepalived
