@@ -2,9 +2,8 @@
 global_defs {
 }
 vrrp_script chk_service {           # Requires keepalived-1.1.13
-        script "killall -0 {{ keepalived_check_process }}"     # cheaper than pidof
+        script '/etc/keepalived/check_script.sh'     # cheaper than pidof
         interval 2                      # check every 2 seconds
-        weight 2                        # add 2 points of prio if OK
 }
 vrrp_instance VI_1 {
     state {{ keepalived_role }}
@@ -23,7 +22,7 @@ vrrp_instance VI_1 {
     virtual_ipaddress {
         {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
     }
-        track_script {
-            chk_service
-        }
+    track_script {
+        chk_service
+    }
 }
