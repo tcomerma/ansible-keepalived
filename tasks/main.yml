@@ -15,16 +15,18 @@
 
 - name: chk_service script shell
   template: 
-    src: check_script.sh.j2 
-    dest: /etc/keepalived/check_script.sh
+    src: "{{ keepalived_check_script_name }}.sh.j2 }}"
+    dest: "/etc/keepalived/{{ keepalived_check_script_name }}.sh"
     mode: 0755
     owner: root
     group: root
   tags: keepalived
   notify: restart keepalived
 
-- name: Configurar configuració de keepalived
-  template: src=keepalived.conf.j2 dest=/etc/keepalived/keepalived.conf
+- name: Keepalived configuration
+  template: 
+    src: keepalived.conf.j2 
+    dest: /etc/keepalived/keepalived.conf
   tags: keepalived
   notify: restart keepalived
 

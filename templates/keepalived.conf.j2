@@ -2,7 +2,7 @@
 global_defs {
 }
 vrrp_script chk_service {           # Requires keepalived-1.1.13
-        script '/etc/keepalived/check_script.sh'     # cheaper than pidof
+        script '/etc/keepalived/{{ keepalived_check_script_name }}.sh'     # cheaper than pidof
         interval 2                      # check every 2 seconds
 }
 vrrp_instance VI_1 {
