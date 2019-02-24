@@ -2,7 +2,7 @@
 global_defs {
 }
 vrrp_script chk_service {           # Requires keepalived-1.1.13
-        script '/etc/keepalived/{{ keepalived_check_script_name }}.sh'     # cheaper than pidof
+        script /etc/keepalived/{{ keepalived_check_script_name }}.sh
         interval 2                      # check every 2 seconds
 }
 vrrp_instance VI_1 {
@@ -16,7 +16,7 @@ vrrp_instance VI_1 {
     {% endif %}   
     advert_int 1
     {% if keepalived_unicast_mode | default(False) %}
-    unicode_src_ip {{ keepalived_unicast_source }}
+    unicast_src_ip {{ keepalived_unicast_source }}
     unicast_peer {
       {% for peer in keepalived_unicast_peers %}
         {{ peer }}
@@ -39,4 +39,7 @@ vrrp_instance VI_1 {
     track_script {
         chk_service
     }
+    {% if keepalived_notifications_email | default(False) %}
+    notify /etc/keepalived/notify.sh
+    {% endif %}
 }

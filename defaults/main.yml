@@ -16,3 +16,4 @@ keepalived_unicast_mode: False
 keepalived_unicast_source: "10.0.0.1"
 keepalived_unicast_peers:
   - "10.0.0.2"
+keepalived_notification_email: False # Setting an email address will install, start and enable postfix

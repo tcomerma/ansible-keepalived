@@ -8,10 +8,34 @@
   tags: keepalived
   notify: restart keepalived
 
+- when: keepalived_notifications_email | default(False)
+  block:
+   - name: Install postfix to send notifications
+     package: 
+       name: ['postfix', 'mailx']
+       state: present
+
+   - name: Start and enable postfix
+     service:
+       name: postfix
+       state: started
+       enabled: yes
+ 
+
 - name: Install check script
   template: 
     src: "templates/{{ keepalived_check_script_name }}.sh.j2"
     dest: "/etc/keepalived/{{ keepalived_check_script_name }}.sh"
+    mode: 0755
+    owner: root
+    group: root
+  tags: keepalived
+  notify: restart keepalived
+
+- name: Install check script
+  template: 
+    src: "templates/notify.sh.j2"
+    dest: "/etc/keepalived/notify.sh"
     mode: 0755
     owner: root
     group: root
