@@ -29,11 +29,12 @@ vrrp_instance VI_1 {
     }
     virtual_ipaddress {
     {% if keepalived_shared_ip | default(False) %}
-        {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
-    {%endif %}
-    {% for ip in keepalived_shared_ips | default([]) %}
-        {{ ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
-    {%endfor %}
+      {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }}
+    {% else %}
+      {% for ip in keepalived_shared_ips | default([]) %}
+          {{ ip }} dev {{ keepalived_shared_iface }}
+      {% endfor %}
+    {% endif %}
     }
     track_script {
         chk_service
