@@ -15,12 +15,25 @@ vrrp_instance VI_1 {
     priority {{ keepalived_backup_priority }}
     {% endif %}   
     advert_int 1
+    {% if keepalived_unicast_mode | default(False) %}
+    unicode_src_ip {{ keepalived_unicast_source }}
+    unicast_peer {
+      {% for peer in keepalived_unicast_peers %}
+        {{ peer }}
+      {% endfor %}
+    }
+    {% endif %}
     authentication {
         auth_type PASS
         auth_pass {{ keepalived_auth_pass }}
     }
     virtual_ipaddress {
+    {% if keepalived_shared_ip | default(False) %}
         {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
+    {%endif %}
+    {% for ip in keepalived_shared_ips | default([]) %}
+        {{ ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
+    {%endfor %}
     }
     track_script {
         chk_service

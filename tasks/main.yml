@@ -1,7 +1,7 @@
 ---
 # This role installs and sets up keepalived
 
-- name: Install keepalived (Centos)
+- name: Install keepalived
   package: 
     name: keepalived
     state: latest
@@ -10,7 +10,7 @@
 
 - name: Install check script
   template: 
-    src: "{{ keepalived_check_script_name }}.sh.j2 }}"
+    src: "templates/{{ keepalived_check_script_name }}.sh.j2"
     dest: "/etc/keepalived/{{ keepalived_check_script_name }}.sh"
     mode: 0755
     owner: root
