@@ -32,7 +32,7 @@
   tags: keepalived
   notify: restart keepalived
 
-- name: Install check script
+- name: Install notify script
   template: 
     src: "templates/notify.sh.j2"
     dest: "/etc/keepalived/notify.sh"
