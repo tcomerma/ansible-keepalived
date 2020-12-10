@@ -12,7 +12,7 @@
   block:
    - name: Install postfix to send notifications
      package: 
-       name: ['postfix', 'mailx']
+       name: ['postfix', 'mailutils']
        state: present
 
    - name: Start and enable postfix
