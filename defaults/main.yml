@@ -17,3 +17,8 @@ keepalived_unicast_source: "10.0.0.1"
 keepalived_unicast_peers:
   - "10.0.0.2"
 keepalived_notification_email: False # Setting an email address will install, start and enable postfix
+
+keepalived_notification_script: False # Execute a custom script when state changes - NOT compatible with email notification
+keepalived_notification_command_backup: False # Execute a command when state changes to backup
+keepalived_notification_command_master: False # Execute a command when state changes to master
+keepalived_notification_command_fault: False # Execute a command when state changes to fault

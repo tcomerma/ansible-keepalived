@@ -39,7 +39,19 @@ vrrp_instance VI_1 {
     track_script {
         chk_service
     }
-    {% if keepalived_notifications_email | default(False) %}
-    notify /etc/keepalived/notify.sh
+    {% if keepalived_notification_email | default(False) %}
+    notify /etc/keepalived/email_notify.sh
+    {% endif %}
+    {% if keepalived_notification_script | default(False) %}
+    notify {{ keepalived_notification_script }}
+    {% endif %}
+    {% if keepalived_notification_command_backup | default(False) %}
+    notify_backup "{{ keepalived_notification_command_backup }}"
+    {% endif %}
+    {% if keepalived_notification_command_master | default(False) %}
+    notify_master "{{ keepalived_notification_command_master }}"
+    {% endif %}
+    {% if keepalived_notification_command_fault | default(False) %}
+    notify_fault "{{ keepalived_notification_command_fault }}"
     {% endif %}
 }

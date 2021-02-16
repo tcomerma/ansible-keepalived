@@ -32,10 +32,10 @@
   tags: keepalived
   notify: restart keepalived
 
-- name: Install notify script
+- name: Install email notification script
   template: 
-    src: "templates/notify.sh.j2"
-    dest: "/etc/keepalived/notify.sh"
+    src: "templates/email_notify.sh.j2"
+    dest: "/etc/keepalived/email_notify.sh"
     mode: 0755
     owner: root
     group: root
