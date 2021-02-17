@@ -1,6 +1,7 @@
  ! Configuration File for keepalived
 global_defs {
-enable_script_security
+    enable_script_security
+    script_user root
 }
 vrrp_script chk_service {           # Requires keepalived-1.1.13
         script /etc/keepalived/{{ keepalived_check_script_name }}.sh
