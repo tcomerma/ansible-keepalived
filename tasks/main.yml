@@ -1,33 +1,57 @@
 ---
 # This role installs and sets up keepalived
 
-- name: Install keepalived (Centos)
-  yum: name=keepalived state=present
-  when: ansible_os_family == "RedHat"
+- name: Install keepalived
+  package: 
+    name: keepalived
+    state: latest
   tags: keepalived
   notify: restart keepalived
 
-- name: Install keepalived (debian/ubuntu)
-  apt: name=keepalived state=latest
-  when: ansible_os_family == "Debian"
-  tags: keepalived
-  notify: restart keepalived
+- when: keepalived_notifications_email | default(False)
+  block:
+   - name: Install postfix to send notifications
+     package: 
+       name: ['postfix', 'mailutils']
+       state: present
 
-- name: chk_service script shell
+   - name: Start and enable postfix
+     service:
+       name: postfix
+       state: started
+       enabled: yes
+ 
+
+- name: Install check script
   template: 
-    src: check_script.sh.j2 
-    dest: /etc/keepalived/check_script.sh
+    src: "templates/{{ keepalived_check_script_name }}.sh.j2"
+    dest: "/etc/keepalived/{{ keepalived_check_script_name }}.sh"
     mode: 0755
     owner: root
     group: root
   tags: keepalived
   notify: restart keepalived
 
-- name: Configurar configuració de keepalived
-  template: src=keepalived.conf.j2 dest=/etc/keepalived/keepalived.conf
+- name: Install email notification script
+  template: 
+    src: "templates/email_notify.sh.j2"
+    dest: "/etc/keepalived/email_notify.sh"
+    mode: 0755
+    owner: root
+    group: root
+  tags: keepalived
+  notify: restart keepalived
+
+- name: Keepalived configuration
+  template: 
+    src: keepalived.conf.j2 
+    dest: /etc/keepalived/keepalived.conf
   tags: keepalived
   notify: restart keepalived
 
 - name: Start keepalived
-  service: name=keepalived state=started
+  service: 
+    name: keepalived
+    state: started
+    enabled: yes
   tags: keepalived

@@ -6,7 +6,19 @@ keepalived_auth_pass: "1111"
 keepalived_role: "MASTER"
 keepalived_router_id: "52"
 keepalived_shared_iface: "eth0"
-keepalived_shared_ip: "192.168.1.1"
-keepalived_check_process: "keepalived"
+keepalived_shared_ips: 
+  - "192.168.1.1/24"
+keepalived_check_process: "nginx"
 keepalived_priority: "100"
 keepalived_backup_priority: "50"
+keepalived_check_script_name: "check_script"
+keepalived_unicast_mode: False
+keepalived_unicast_source: "10.0.0.1"
+keepalived_unicast_peers:
+  - "10.0.0.2"
+keepalived_notification_email: False # Setting an email address will install, start and enable postfix
+
+keepalived_notification_script: False # Execute a custom script when state changes - NOT compatible with email notification
+keepalived_notification_command_backup: False # Execute a command when state changes to backup
+keepalived_notification_command_master: False # Execute a command when state changes to master
+keepalived_notification_command_fault: False # Execute a command when state changes to fault

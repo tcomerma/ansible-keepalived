@@ -1,8 +1,10 @@
  ! Configuration File for keepalived
 global_defs {
+    enable_script_security
+    script_user root
 }
 vrrp_script chk_service {           # Requires keepalived-1.1.13
-        script '/etc/keepalived/check_script.sh'     # cheaper than pidof
+        script /etc/keepalived/{{ keepalived_check_script_name }}.sh
         interval 2                      # check every 2 seconds
 }
 vrrp_instance VI_1 {
@@ -15,14 +17,43 @@ vrrp_instance VI_1 {
     priority {{ keepalived_backup_priority }}
     {% endif %}   
     advert_int 1
+    {% if keepalived_unicast_mode | default(False) %}
+    unicast_src_ip {{ keepalived_unicast_source }}
+    unicast_peer {
+      {% for peer in keepalived_unicast_peers %}
+        {{ peer }}
+      {% endfor %}
+    }
+    {% endif %}
     authentication {
         auth_type PASS
         auth_pass {{ keepalived_auth_pass }}
     }
     virtual_ipaddress {
-        {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }} label {{ keepalived_shared_iface }}:0
+    {% if keepalived_shared_ip | default(False) %}
+      {{ keepalived_shared_ip }} dev {{ keepalived_shared_iface }}
+    {% else %}
+      {% for ip in keepalived_shared_ips | default([]) %}
+          {{ ip }} dev {{ keepalived_shared_iface }}
+      {% endfor %}
+    {% endif %}
     }
     track_script {
         chk_service
     }
+    {% if keepalived_notification_email | default(False) %}
+    notify /etc/keepalived/email_notify.sh
+    {% endif %}
+    {% if keepalived_notification_script | default(False) %}
+    notify {{ keepalived_notification_script }}
+    {% endif %}
+    {% if keepalived_notification_command_backup | default(False) %}
+    notify_backup "{{ keepalived_notification_command_backup }}"
+    {% endif %}
+    {% if keepalived_notification_command_master | default(False) %}
+    notify_master "{{ keepalived_notification_command_master }}"
+    {% endif %}
+    {% if keepalived_notification_command_fault | default(False) %}
+    notify_fault "{{ keepalived_notification_command_fault }}"
+    {% endif %}
 }
